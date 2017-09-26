@@ -1,4 +1,3 @@
-
 #ifndef IMAGEPROCESSING_H
 #define IMAGEPROCESSING_H
 
@@ -11,5 +10,7 @@ typedef struct {
 imagem abrir_imagem(char *nome_do_arquivo);
 void salvar_imagem(char *nome_do_arquivo, imagem *I);
 void liberar_imagem(imagem *i);
+void alterar_brilho (imagem *I, char *nome_do_arquivo, float multiplicador);
+void intensidade_max(imagem *I, char *nome_do_arquivo);
 
 #endif

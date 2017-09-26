@@ -1,12 +1,12 @@
-
 %{
+
 #include <stdlib.h>
 #include <string.h>
 void yyerror(char *);
 
 #include "y.tab.h"
-%}
 
+%}
 
 
 %%
@@ -16,8 +16,22 @@ void yyerror(char *);
         return VAR;
        }
 
+[0-9]+[.][0-9]+  {
+        for (int i = 0; i < yyleng; i++ )
+          yylval.strval[i] = yytext[i];
+
+        yylval.strval[yyleng] = '\0';
+
+        yylval.ival = atof(yytext);
+
+        printf ("Achei brilho: %f\n", yylval.ival);
+
+        return NUM;
+       }
+
 
 \" { return ASPA; }
+
 
 [a-zA-Z0-9\.]+  {
         for (int i = 0; i < yyleng; i++ )
@@ -28,13 +42,29 @@ void yyerror(char *);
         return STRING;
        }
 
+
+
+\[ 	{
+	return ABRECOL;
+	}
+
+\] 	{ return FECHACOL;
+	}
+
 [=]     {
           return IGUAL;
         }
 
+
+[/*]     {
+          return OPE;
+        }
+
+
 \n   {
          return EOL;
        }
+
 
 [ \t]+ ;
 
